@@ -17,12 +17,28 @@
     `webserver \`
     `nginx:v2`	--将当前容器webserver保存为镜像nginx:v2 commit慎用 通常左故障排查备份镜像用
 ###运行镜像
+`$ docker run ubuntu:18.04 /bin/echo 'Hello world'`
+`Hello world`
+启动后运行完语句直接就退出了
 `docker run -it --rm \`
     `ubuntu:18.04 \`
     `bash`
 -it : -i:交互操作 -t: 终端
 -rm : 退出后删除
 bash 命令
+
+`docker run -dit ubuntu:latest` 在后台运行容器 用docker logs xxx 查看日志
+进入容器 `docker attach` 命令或 `docker exec` 命令
+用attach进入容器后 exit会终止容器运行 用exec配合-it进入后 exit会退出容器 不会终止容器
+推荐用exec进入容器
+`docker exec -it 69d1 bash`
+`docker container ls -a` 列出容器
+`docker container rm  trusting_newton` 删除容器
+`docker run -p 6379:6379 -v $PWD/data:/data xxx`
+alpine的镜像非常小 里面没有bash 所以进入时不能以bash方式进入 可以如下进入
+`docker exec -it CONTAINER_ID sh`
+scratch 为空白镜像 占用的最小 也可以运行cmd命令 但无法进入 不能通过sh进入和运行命令
+运行镜像时 -p 端口映射 -v 文件夹挂载
 ###定制镜像
 FROM [镜像基础] 
 	基础镜像 如 ubuntu、debian、centos、fedora、alpine 等 scratch 为空白镜像
@@ -154,3 +170,10 @@ $ COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf 也可复制任意�
 2、镜像内编译 编译好后复制到要生成的镜像
 考虑用第二种 因为之后开发中不一定只有go环境 还可能有node等环境
 如果本地编译又要好几步完成 索性放到镜像里编译 可能每次都要复制代码到镜像会有些慢
+
+实践了下 放到镜像里编译 实现起来比较麻烦 主要是依赖包的问题
+镜像里并没有程序依赖包 所以每次编译都要下载安装依赖包会很慢 而且每次都是下载最新的依赖包 有可能会出从 所以还是放到本地编译 把运行文件放到镜像里
+
+###docker compose
+编写 docker-compose.yml文件
+ docker-compose up 运行docker-compose
