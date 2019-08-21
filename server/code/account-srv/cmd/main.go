@@ -8,9 +8,9 @@ import (
 	"syscall"
 	"time"
 
-	"account/internal/server/grpc"
-	"account/internal/server/http"
-	"account/internal/service"
+	"account-srv/internal/server/grpc"
+	"account-srv/internal/server/http"
+	"account-srv/internal/service"
 	"github.com/bilibili/kratos/pkg/conf/paladin"
 	"github.com/bilibili/kratos/pkg/log"
 )
@@ -22,7 +22,7 @@ func main() {
 	}
 	log.Init(nil) // debug flag: log.dir={path}
 	defer log.Close()
-	log.Info("account start")
+	log.Info("account-srv start")
 	svc := service.New()
 	grpcSrv := grpc.New(svc)
 	httpSrv := http.New(svc)
@@ -39,7 +39,7 @@ func main() {
 			if err := httpSrv.Shutdown(ctx); err != nil {
 				log.Error("httpSrv.Shutdown error(%v)", err)
 			}
-			log.Info("account exit")
+			log.Info("account-srv exit")
 			svc.Close()
 			cancel()
 			time.Sleep(time.Second)

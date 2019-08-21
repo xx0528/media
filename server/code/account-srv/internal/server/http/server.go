@@ -3,9 +3,9 @@ package http
 import (
 	"net/http"
 
-	pb "account/api"
-	"account/internal/model"
-	"account/internal/service"
+	pb "account-srv/api"
+	"account-srv/internal/model"
+	"account-srv/internal/service"
 
 	"github.com/bilibili/kratos/pkg/conf/paladin"
 	"github.com/bilibili/kratos/pkg/log"
@@ -40,7 +40,7 @@ func New(s *service.Service) (engine *bm.Engine) {
 
 func initRouter(e *bm.Engine) {
 	e.Ping(ping)
-	g := e.Group("/account")
+	g := e.Group("/account-srv")
 	{
 		g.GET("/start", howToStart)
 	}

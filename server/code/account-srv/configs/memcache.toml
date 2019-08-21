@@ -2,7 +2,7 @@
 demoExpire = "24h"
 
 [demo]
-	name = "account"
+	name = "account-srv"
 	proto = "tcp"
 	addr = "127.0.0.1:11211"
 	active = 50

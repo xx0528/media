@@ -19,7 +19,7 @@ service Demo {
 	rpc SayHello (HelloReq) returns (.google.protobuf.Empty);
 	rpc SayHelloURL(HelloReq) returns (HelloResp) {
         option (google.api.http) = {
-            get:"/account/say_hello"
+            get:"/account-srv/say_hello"
         };
     };
 }
