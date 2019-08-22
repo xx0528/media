@@ -16,6 +16,18 @@ linux：
     `go version`
     运行 `go env` 查看GOPATH路径
 
+安装好后 要配置环境变量
+$GOPATH
+$GOBIN
+不然kratos tool 一些工具找不到路径
+mac下 vim ~/.bash_profile
+export GOPATH=/usr/go
+export GOBIN=/usr/go/bin
+source ~/.bash_profile
+
+linux下 vim ~/.bashrc
+source ~/.bashrc
+
 1.安装protoc二进制文件
 
 下载地址：https://github.com/google/protobuf/releases
